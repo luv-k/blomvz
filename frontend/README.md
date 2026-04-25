@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# BlomVZ — Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React frontend for BlomVZ. Renders the neural graph, file inspector, and AI question bar.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Stack
 
-### `npm start`
+- React 18 (Create React App)
+- Canvas API — graph renderer
+- No UI library — everything custom
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+```bash
+npm install
+npm start
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Opens at http://localhost:3000
 
-### `npm run build`
+Make sure the backend is running at http://localhost:8000 before using the app.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Structure
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+src/
+├── api/
+│   └── client.js        — all backend API calls in one place
+├── components/
+│   ├── DropZone.js      — repo input (local path, zip upload, git url)
+│   ├── NeuralGraph.js   — canvas graph with force layout and particles
+│   ├── NodePanel.js     — file inspector panel (right side)
+│   └── AskBar.js        — AI question input and answer display
+├── App.js               — main layout, holds all state
+├── index.js             — entry point
+└── index.css            — global reset and animations
+```
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## How it works
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**DropZone** — three ways to load a repo: paste a local path, upload a zip, or paste a git URL. Calls the backend and gets back a graph.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**NeuralGraph** — renders nodes and edges on a canvas. Uses a force-directed layout algorithm — nodes repel each other, edges pull connected nodes together. Particles flow along edges showing dependency direction. Click a node to select it.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**NodePanel** — shows details for the selected node: file path, language, type, line count, complexity score, exports, what it imports, and what imports it. Every dependency is clickable.
 
-## Learn More
+**AskBar** — type any question about the codebase. Sends it to the backend AI endpoint. Answer appears above the bar, relevant files get highlighted on the graph with a yellow ring.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Connecting to backend
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+All API calls are in `src/api/client.js`. Backend URL is hardcoded to `http://localhost:8000`. Change it there if your backend runs on a different port or host.
