@@ -1,10 +1,16 @@
 # Python
 .venv
+backend/app/__pycache__
+backend/app/api/__pycache__
+backend/app/api/routes/__pycache__
 backend/.venv
 backend/__pycache__
 backend/*.pyc
 backend/codebase.db
 backend/.env
+backend/app/core/__pycache__
+backend/app/models/__pycache__
+backend/app/utils/__pycache__
 
 # Node
 frontend/node_modules
