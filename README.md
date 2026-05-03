@@ -46,7 +46,7 @@ Backend (FastAPI)
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/yourname/blomvz
+git clone https://github.com/luv-k/blomvz
 cd blomvz
 ```
 
